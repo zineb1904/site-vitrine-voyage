@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Séjours — Cap Horizon Voyages</title>
+<meta name="description" content="Cap Horizon Voyages : séjours sur mesure depuis Marrakech. Site de démonstration.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="index.html">Cap<span>Horizon</span></a>
+    <nav aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="sejours.html" aria-current="page">Séjours</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+</div>
+<div class="wrap">
+  <div class="page-head">
+    <h1 style="font-size:clamp(2.2rem,5vw,3.6rem)">Nos séjours</h1>
+    <p>Chaque séjour peut être adapté : dates, durée, budget, nombre de voyageurs.</p>
+    <nav class="sub" id="sub" aria-label="Aller à un séjour"></nav>
+  </div>
+  <div id="fiches" style="margin-top:30px"></div>
+</div>
+<div class="cta-band" style="margin-top:40px">
+  <div class="wrap">
+    <h2>Un séjour à adapter ? Dites-nous vos dates.</h2>
+    <a class="btn alt" href="contact.html">Demander un devis</a>
+  </div>
+</div>
+<footer>
+  <div class="wrap">
+    <span>Cap Horizon Voyages</span>
+    <span>Site de démonstration : agence, offres et prix fictifs.</span>
+  </div>
+</footer>
+<script src="trips.js"></script>
+<script>
+const box=document.getElementById("fiches"),sub=document.getElementById("sub");
+TRIPS.forEach(t=>{
+  const id=t.n.toLowerCase();
+  sub.insertAdjacentHTML("beforeend",`<a href="#${id}">${t.n}</a>`);
+  box.insertAdjacentHTML("beforeend",`<article class="fiche" id="${id}">
+    <div><h2>${t.n}</h2><p class="meta">${t.d}<b>dès ${fmt(t.p)}</b></p><a class="btn alt" href="contact.html?dest=${encodeURIComponent(t.n)}">Demander ce séjour</a></div>
+    <div><p style="margin-bottom:16px">${t.t}</p>
+      <h3>Programme</h3><ol>${t.prog.map(x=>`<li>${x}</li>`).join("")}</ol>
+      <h3>Inclus</h3><ul>${t.inc.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+  </article>`);
+});
+</script>
+</body>
+</html>

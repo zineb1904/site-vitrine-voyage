@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Cap Horizon Voyages</title>
+<meta name="description" content="Cap Horizon Voyages : séjours sur mesure depuis Marrakech. Site de démonstration.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="index.html">Cap<span>Horizon</span></a>
+    <nav aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="sejours.html">Séjours</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
+  </header>
+</div>
+<div class="wrap">
+  <section style="padding-top:34px">
+    <div class="contact">
+      <div class="coords">
+        <h1 style="font-size:clamp(2.2rem,5vw,3.4rem)">Parlons de votre voyage</h1>
+        <p>Indiquez la destination et vos dates : vous recevez un devis détaillé sous 24 heures.</p>
+        <p><strong>Agence :</strong> Guéliz, Marrakech</p>
+        <p><strong>Horaires :</strong> lundi au samedi, 9h à 18h</p>
+      </div>
+      <form id="form" novalidate>
+        <label>Nom complet <input name="nom" required autocomplete="name"></label>
+        <label>Adresse e-mail <input name="email" type="email" required autocomplete="email"></label>
+        <div class="two">
+          <label>Destination <select name="dest" id="dest"></select></label>
+          <label>Date de départ <input name="date" type="date"></label>
+        </div>
+        <label>Votre projet <textarea name="msg" rows="4" placeholder="Nombre de voyageurs, budget, envies particulières"></textarea></label>
+        <button class="btn" type="submit">Envoyer ma demande</button>
+        <p id="msg" role="status"></p>
+      </form>
+    </div>
+  </section>
+</div>
+<footer>
+  <div class="wrap">
+    <span>Cap Horizon Voyages</span>
+    <span>Site de démonstration : agence, offres et prix fictifs.</span>
+  </div>
+</footer>
+<script src="trips.js"></script>
+<script>
+const dest=document.getElementById("dest");
+TRIPS.forEach(t=>dest.insertAdjacentHTML("beforeend",`<option>${t.n}</option>`));
+const q=new URLSearchParams(location.search).get("dest");
+if(q&&TRIPS.some(t=>t.n===q))dest.value=q;
+document.getElementById("form").addEventListener("submit",e=>{
+  e.preventDefault();
+  const f=e.target,m=document.getElementById("msg");
+  if(!f.nom.value.trim()||!f.email.value||!f.email.validity.valid){m.style.color="#b3261e";m.textContent="Renseignez votre nom et une adresse e-mail valide.";return}
+  m.style.color="";m.textContent="Demande reçue pour "+f.dest.value+". Ceci est une démonstration : aucun message n'est envoyé.";
+  f.reset();
+});
+</script>
+</body>
+</html>

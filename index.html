@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cap Horizon Voyages — Agence de voyages à Marrakech</title>
+<meta name="description" content="Cap Horizon Voyages : séjours sur mesure depuis Marrakech. Site de démonstration.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="index.html">Cap<span>Horizon</span></a>
+    <nav aria-label="Navigation principale">
+      <a href="index.html" aria-current="page">Accueil</a>
+      <a href="sejours.html">Séjours</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+</div>
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <h1>Choisissez le départ. Nous organisons le reste.</h1>
+      <p class="lead">Séjours sur mesure depuis Marrakech : vols, hébergements et excursions réservés pour vous, avec un conseiller qui répond en moins d'une journée.</p>
+      <a class="btn alt" href="contact.html">Demander un devis</a>
+    </div>
+    <div class="board" aria-label="Tableau des départs">
+      <h2>Prochains départs <small>prix par personne</small></h2>
+      <ul class="rows" id="rows"></ul>
+      <div class="detail" id="detail" aria-live="polite"></div>
+    </div>
+  </div>
+</div>
+
+<section class="band">
+  <div class="wrap">
+    <h2 class="title">Voyager sans mauvaise surprise</h2>
+    <div class="points">
+      <div><h3>Prix tout compris</h3><p>Le devis indique vols, nuits, transferts et excursions. Pas de frais ajoutés à la réservation.</p></div>
+      <div><h3>Un seul interlocuteur</h3><p>Le même conseiller prépare votre voyage et reste joignable pendant le séjour.</p></div>
+      <div><h3>Modifiable jusqu'au départ</h3><p>Changement de date ou de chambre possible sans repartir de zéro.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="wrap">
+    <h2>Cinq séjours, un programme détaillé pour chacun.</h2>
+    <a class="btn alt" href="sejours.html">Voir les séjours</a>
+  </div>
+</div>
+<footer>
+  <div class="wrap">
+    <span>Cap Horizon Voyages</span>
+    <span>Site de démonstration : agence, offres et prix fictifs.</span>
+  </div>
+</footer>
+<script src="trips.js"></script>
+<script>
+const rows=document.getElementById("rows"),detail=document.getElementById("detail");
+TRIPS.forEach((t,i)=>rows.insertAdjacentHTML("beforeend",`<li><button type="button" data-i="${i}" aria-pressed="false"><span class="city">${t.n}</span><span class="dur">${t.d}</span><span class="price">${fmt(t.p)}</span></button></li>`));
+function show(i){
+  const t=TRIPS[i];
+  rows.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.i==i));
+  detail.innerHTML=`<h3>${t.n}, ${t.d}</h3><p>${t.t}</p><a class="go" href="sejours.html#${t.n.toLowerCase()}">Voir le programme</a>`;
+}
+rows.addEventListener("click",e=>{const b=e.target.closest("button");if(b)show(+b.dataset.i)});
+show(0);
+</script>
+</body>
+</html>
